@@ -1,23 +1,44 @@
 import logo from './logo.svg';
 import './App.css';
+import AddTask from './component/AddTask';
+import ShowList from './component/ShowList';
+import { useEffect, useState } from 'react';
 
 function App() {
+   const LOCAL_STORAGE_KEY='list'
+
+  const[list,setList]=useState([])
+
+  const addalltasks=(lists)=>{
+    console.log(lists,'oo');
+    setList([...list,lists])
+    
+      
+  }
+
+ 
+
+ 
+
+
+  useEffect(()=>{
+    const  retriveContact=JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
+     if(retriveContact)  setList(retriveContact)
+  },[])
+
+  useEffect(()=>{
+    localStorage.setItem(LOCAL_STORAGE_KEY,JSON.stringify(list))
+  },[list])
+
+
+ 
+ 
+ 
+ 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AddTask addalltasks={addalltasks}/>
+    <ShowList pro={list}/>
     </div>
   );
 }
